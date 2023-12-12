@@ -48,12 +48,12 @@
         var headerRow = document.getElementById("resultTable").insertRow(0);
         headerRow.insertCell(0).outerHTML = "<th></th>"; // Empty corner cell
         for (var i = 0; i < z; ++i) {
-            headerRow.insertCell(i + 1).textContent = i;
+            headerRow.insertCell(i + 1).innerHTML = '<b>' + i + '</b>';
         }
 
         for (var a = 0; a < z; ++a) {
             var newRow = document.getElementById("resultTable").insertRow(-1);
-            newRow.insertCell(0).textContent = a;
+            newRow.insertCell(0).innerHTML = '<b>' + a + '</b>';
 
             for (var b = 0; b < z; ++b) {
                 var result = eval(formula)%z;
