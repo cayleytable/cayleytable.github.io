@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formula Calculator</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        #dropdown {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Formula Calculator</h1>
+
+<label for="formula">Enter Formula:</label>
+<input type="text" id="formula" placeholder="e.g., a * b + 2 * (b ** 3) + 1">
+<button onclick="calculate()">Calculate</button>
+
+<select id="dropdown" onchange="changeVersion()">
+    <option value="legacy" selected>Legacy</option>
+    <option value="stable">Stable</option>
+</select>
+
+<table id="resultTable">
+    <!-- Result table will be populated dynamically -->
+</table>
+
+<script>
+    function calculate() {
+        // Clear previous results
+        document.getElementById("resultTable").innerHTML = "";
+
+        // Get the formula from the input field
+        var formula = document.getElementById("formula").value;
+
+        // Define the range for variables a and b
+        var z = 17;
+
+        // Create the table header
+        var headerRow = document.getElementById("resultTable").insertRow(0);
+        headerRow.insertCell(0).outerHTML = "<th></th>"; // Empty corner cell
+        for (var i = 0; i < z; ++i) {
+            headerRow.insertCell(i + 1).textContent = i;
+        }
+
+        // Populate the table with results
+        for (var a = 0; a < z; ++a) {
+            var newRow = document.getElementById("resultTable").insertRow(-1);
+            newRow.insertCell(0).textContent = a;
+
+            for (var b = 0; b < z; ++b) {
+                // Evaluate the formula for each pair of a and b
+                var result = eval(formula.replace(/a/g, a).replace(/b/g, b))%17;
+                newRow.insertCell(b + 1).textContent = result;
+            }
+        }
+    }
+
+    // Function to change version based on dropdown selection
+    function changeVersion() {
+        var dropdown = document.getElementById("dropdown");
+        var selectedValue = dropdown.options[dropdown.selectedIndex].value;
+
+        if (selectedValue === "stable") {
+            window.location.href = "https://cayleytable.github.io/";
+        } else {
+            window.location.href = "https://cayleytable.github.io/legacy.html";
+        }
+    }
+</script>
+
+</body>
+</html>

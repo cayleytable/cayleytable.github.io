@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formula Calculator</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        #dropdown {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Formula Calculator</h1>
+
+<label for="formula">Enter Formula:</label>
+<input type="text" id="formula" placeholder="e.g., a * b + 2 * Math.sqrt(b) + Math.sin(a) + Math.cos(b) + Math.PI">
+<button onclick="calculate()">Calculate</button>
+
+<select id="dropdown" onchange="changeVersion()">
+    <option value="stable" selected>Stablea</option>
+    <option value="legacy">Legacy</option>
+</select>
+
+<table id="resultTable">
+</table>
+
+<script>
+    function calculate() {
+        document.getElementById("resultTable").innerHTML = "";
+
+        var formula = document.getElementById("formula").value;
+
+        var z = 17;
+
+        var headerRow = document.getElementById("resultTable").insertRow(0);
+        headerRow.insertCell(0).outerHTML = "<th></th>"; // Empty corner cell
+        for (var i = 0; i < z; ++i) {
+            headerRow.insertCell(i + 1).textContent = i;
+        }
+
+        for (var a = 0; a < z; ++a) {
+            var newRow = document.getElementById("resultTable").insertRow(-1);
+            newRow.insertCell(0).textContent = a;
+
+            for (var b = 0; b < z; ++b) {
+                var result = eval(formula)%17;
+                if (Math.abs(result - Math.round(result)) < 1e-4) {
+                    result = Math.round(result);
+                }
+                newRow.insertCell(b + 1).textContent = result;
+            }
+        }
+    }
+
+    function changeVersion() {
+        var dropdown = document.getElementById("dropdown");
+        var selectedValue = dropdown.options[dropdown.selectedIndex].value;
+
+        window.location.href = selectedValue === "stable" ? 
+    "https://cayleytable.github.io/" : "https://cayleytable.github.io/legacy.html";
+
+    }
+</script>
+
+</body>
+</html>
