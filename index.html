@@ -56,7 +56,7 @@
             newRow.insertCell(0).textContent = a;
 
             for (var b = 0; b < z; ++b) {
-                var result = eval(formula)%17;
+                var result = eval(formula)%z;
                 if (Math.abs(result - Math.round(result)) < 1e-4) {
                     result = Math.round(result);
                 }
